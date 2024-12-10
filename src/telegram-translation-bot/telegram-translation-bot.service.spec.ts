@@ -9,7 +9,9 @@ describe('TelegramTranslationBotService', () => {
       providers: [TelegramTranslationBotService],
     }).compile();
 
-    service = module.get<TelegramTranslationBotService>(TelegramTranslationBotService);
+    service = module.get<TelegramTranslationBotService>(
+      TelegramTranslationBotService,
+    );
   });
 
   it('should be defined', () => {

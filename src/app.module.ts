@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TelegramTranslationBotModule } from './telegram-translation-bot/telegram-translation-bot.module';
+import { PrismaService } from './prisma/prisma.service';
 
 @Module({
   imports: [
@@ -12,6 +13,6 @@ import { TelegramTranslationBotModule } from './telegram-translation-bot/telegra
     TelegramTranslationBotModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PrismaService],
 })
 export class AppModule {}

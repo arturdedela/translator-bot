@@ -1,0 +1,34 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Chat {
+  id BigInt @id()
+  type String
+  createdAt DateTime @default(now())
+
+  isActive Boolean @default(false)
+
+  translatedMessagesCount BigInt @default(0)
+
+  maxLanguages Int @default(3)
+
+  languages String[] @default([])
+}
+
+// model ChatSubscription {
+//   id String @default(uuid()) @id()
+
+//   isActive Boolean
+// }
