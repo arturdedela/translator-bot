@@ -202,6 +202,11 @@ export class TelegramTranslationBotService implements OnModuleInit {
         select: { isActive: true, languages: true },
       });
 
+      if (!chat) {
+        // TODO: Initiate /start logic here.
+        return;
+      }
+
       if (!chat.isActive) {
         ctx.reply('You dont have valid subscription.');
         return;
