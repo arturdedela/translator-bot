@@ -119,45 +119,6 @@ const SUPPORTED_LANGUAGES = [
   'bg',
 ];
 
-// const SUPPORTED_LANGUAGES = [
-//   '🇬🇧 English',
-//   '🇨🇳 Chinese',
-//   '🇪🇸 Spanish',
-//   '🇷🇺 Russian',
-//   '🇷🇸 Serbian',
-//   '🇫🇷 French',
-//   '🇮🇳 Hindi',
-//   '🇸🇦 Arabic',
-//   '🇧🇩 Bengali',
-//   '🇵🇹 Portuguese',
-//   '🇵🇰 Urdu',
-//   '🇯🇵 Japanese',
-//   '🇰🇷 Korean',
-//   '🇹🇷 Turkish',
-//   '🇻🇳 Vietnamese',
-//   '🇩🇪 German',
-//   '🇮🇩 Indonesian',
-//   '🇮🇹 Italian',
-//   '🇹🇭 Thai',
-//   '🇳🇱 Dutch',
-//   '🇵🇱 Polish',
-//   '🇸🇪 Swedish',
-//   '🇺🇦 Ukrainian',
-//   '🇭🇺 Hungarian',
-//   '🇨🇿 Czech',
-//   '🇬🇷 Greek',
-//   '🇲🇾 Malay',
-//   '🇷🇴 Romanian',
-//   '🇵🇭 Tagalog/Filipino',
-//   '🇩🇰 Danish',
-//   '🇳🇴 Norwegian',
-//   '🇫🇮 Finnish',
-//   '🇭🇷 Croatian',
-//   '🇸🇰 Slovak',
-//   '🇸🇮 Slovenian',
-//   '🇧🇬 Bulgarian',
-// ];
-
 @Injectable()
 export class LanguagesService {
   private readonly languageCodes = Object.freeze(SUPPORTED_LANGUAGES);

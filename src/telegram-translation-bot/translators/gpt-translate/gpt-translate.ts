@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import OpenAI from 'openai';
+import type { Translator } from '../translator.interface';
 
 /**
  * Prompts:
@@ -14,8 +15,8 @@ const SYSTEM_PROMPT =
   'Answer should be a clean minified JSON where key is one of target languages code and value is traslation to this language.';
 
 @Injectable()
-export class TranslatorService {
-  private readonly logger = new Logger(TranslatorService.name);
+export class GptTranslate implements Translator {
+  private readonly logger = new Logger(GptTranslate.name);
   private readonly openai = new OpenAI();
 
   /** Translate between 2 specified languages */
@@ -23,7 +24,42 @@ export class TranslatorService {
 
   private logTokensSpent() {}
 
-  async translate(
+  async translate(text: string, targetLang: string): Promise<string> {
+    const gptResponse = await this.openai.chat.completions.create({
+      model: 'gpt-4o-mini',
+      messages: [
+        {
+          role: 'system',
+          content:
+            'You are precise translator.' +
+            'Any message from user must be translated to target language.' +
+            'Try to make answer shorter when possible without losing the meaning.' +
+            'Answer should be a string translated to target language without any other details',
+        },
+        {
+          role: 'system',
+          content: `Target language: ${targetLang}`,
+        },
+        {
+          role: 'user',
+          content: text,
+        },
+      ],
+    });
+
+    this.logger.debug('GPT response: ', gptResponse);
+
+    this.logger.log('Tokens spent: ', {
+      prompt_tokens: gptResponse.usage.prompt_tokens,
+      completition_tokens: gptResponse.usage.completion_tokens,
+    });
+
+    const translation: string = gptResponse.choices[0].message.content;
+
+    return translation;
+  }
+
+  async multiTranslate(
     text: string,
     targetLangs: string[],
   ): Promise<Record<string, string>> {

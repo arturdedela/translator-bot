@@ -13,18 +13,41 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum GroupChatMode {
+  AUTO
+  ASK_ON_EVERY_MESSAGE
+  COMMANDS_ONLY
+  // Inline - Expensive. Requests to translation api multiple times during message typing
+}
+
+enum TranslatorName {
+  GPT
+  GOOGLE
+}
+
 model Chat {
   id BigInt @id()
+  title String
   type String
   createdAt DateTime @default(now())
 
   isActive Boolean @default(false)
 
+  translator TranslatorName @default(GOOGLE)
+
   translatedMessagesCount BigInt @default(0)
+
+  mode GroupChatMode?
 
   maxLanguages Int @default(3)
 
   languages String[] @default([])
+}
+
+model MessageAwaitingTranslation {
+  id String @id() @default(uuid())
+  chatId BigInt
+  text String
 }
 
 // model ChatSubscription {
